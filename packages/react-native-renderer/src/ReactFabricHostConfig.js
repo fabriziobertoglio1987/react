@@ -52,6 +52,7 @@ const {
   measure: fabricMeasure,
   measureInWindow: fabricMeasureInWindow,
   measureLayout: fabricMeasureLayout,
+  sendAccessibilityEvent: fabricSendAccessibilityEvent,
   unstable_DefaultEventPriority: FabricDefaultPriority,
   unstable_DiscreteEventPriority: FabricDiscretePriority,
   unstable_getCurrentEventPriority: fabricGetCurrentEventPriority,
@@ -207,6 +208,17 @@ class ReactFabricHostComponent {
         fromStateNode.node,
         mountSafeCallback_NOT_REALLY_SAFE(this, onFail),
         mountSafeCallback_NOT_REALLY_SAFE(this, onSuccess),
+      );
+    }
+  }
+
+  // add a type AccessibilityEventType
+  sendAccessibilityEvent(eventType: string) {
+    const {stateNode} = this._internalInstanceHandle;
+    if (stateNode != null) {
+      fabricSendAccessibilityEvent(
+        stateNode.node,
+        eventType
       );
     }
   }
